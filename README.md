@@ -5,13 +5,16 @@ This Python project visualizes trends in confirmed cases, deaths, recovered case
 Download and install Python - The code is written for Python 3
 install matplotlib library - This library is used for creating the visualizations
 
+# Running the Script
+Open a terminal, navigate to the script's directory, and run: python covid_data_visualization.py
+
 # Code Explanation
 
 1. load_covid_data(filename) Function:
-    This function takes a filename as input (a JSON file containing COVID-19 data).
-    It opens the file in read mode ('r').
-    It uses json.load(file) to read the JSON data into a Python dictionary.
-    It then calls the process_data function to further process the loaded data and returns the result.
+    - This function takes a filename as input (JSON file).
+    - It opens the file in read mode ('r').
+    - Read the JSON data into a Python dictionary.
+    - Calls process_data function to further process the loaded data and returns the result.
 
 2. process_data(data) Function:
     This function takes a dictionary containing COVID-19 data as input.
@@ -56,5 +59,8 @@ install matplotlib library - This library is used for creating the visualization
     It calls plot_daily_data(covid_data) to generate the plot using the loaded data
 
 
-![alt text](image.png)
-![alt text](image-1.png)
+# Total Covid Data
+![alt text](image-2.png)
+
+# Daily covid Data
+![alt text](image-3.png)
