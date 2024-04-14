@@ -32,22 +32,32 @@ def process_data(data):
     confirmed_cases = []
     deaths = []
     recovered = []
+    active_cases =[]
+    daily_confirmed_cases=[]
+    daily_deaths=[]
     for entry in data:
         dates.append(datetime.strptime(entry['Date'], '%Y/%m/%d'))
         confirmed_cases.append(convert_to_int(entry['Total Confirmed Cases']))
         deaths.append(convert_to_int(entry['Total Deaths']))
         recovered.append(convert_to_int(entry['Total Recovered']))
+        active_cases.append(convert_to_int(entry['Active Cases']))
+        daily_confirmed_cases.append(convert_to_int(entry['Daily Confirmed Cases']))
+        daily_deaths.append(convert_to_int(entry['Daily  deaths']))
+
     return {
         "dates": dates,
         "confirmed_cases": confirmed_cases,
         "deaths": deaths,
-        "recovered": recovered
+        "recovered": recovered,
+        "active_cases" : active_cases,
+        "daily_confirmed_cases": daily_confirmed_cases,
+        "daily_deaths": daily_deaths
     }
 
 
 def convert_to_int(value):
     """
-    Attempts to convert a value to an integer, returns the original value on error.
+    Converts a string value to an integer, returns the original value on error.
 
     Args:
         value: The value to be converted.
@@ -66,15 +76,16 @@ def convert_to_int(value):
 
 def plot_covid_data(data):
     """
-    Generates a plot showing the trends in confirmed cases, deaths, and recovered cases.
+    Generates a plot showing the trends in confirmed cases, deaths, active cases and recovered cases.
 
     Args:
-        data: A dictionary containing lists of dates, confirmed cases, deaths, and recovered cases.
+        data: A dictionary containing lists of dates, confirmed cases, deaths, active cases and recovered cases.
     """
     plt.figure(figsize=(10, 6))
     plt.plot(data["dates"], data["confirmed_cases"], label='Total Confirmed Cases', color='blue')
     plt.plot(data["dates"], data["deaths"], label='Total Deaths', color='red')
     plt.plot(data["dates"], data["recovered"], label='Total Recovered', color='green')
+    plt.plot(data["dates"], data["active_cases"], label='Active Cases', color='yellow')
 
     # Formatting
     plt.title('COVID-19 Cases Over Time')
@@ -89,7 +100,32 @@ def plot_covid_data(data):
     plt.show()
 
 
-# Main program
+def plot_daily_data(data):
+    """
+    Generates a plot showing the trends in daily cases.
+
+    Args:
+        data: A dictionary containing lists of dates, confirmed cases, deaths, and recovered cases.
+    """
+    plt.figure(figsize=(10, 6))
+    plt.plot(data["dates"], data["daily_confirmed_cases"], label='Daily Confirmed Cases', color='blue')
+    plt.plot(data["dates"], data["daily_deaths"], label='Daily Deaths', color='red')
+   
+
+    # Formatting
+    plt.title('Daily COVID-19 Cases')
+    plt.xlabel('Date')
+    plt.ylabel('Number of Cases')
+    plt.xticks(rotation=45)
+    plt.grid(True)
+    plt.legend()
+
+    # Show plot
+    plt.tight_layout()
+    plt.show()
+
+
 if __name__ == '__main__':
     covid_data = load_covid_data("covid.json") 
     plot_covid_data(covid_data)
+    plot_daily_data(covid_data)
