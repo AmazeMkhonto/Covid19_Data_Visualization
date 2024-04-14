@@ -53,8 +53,8 @@ Open a terminal, navigate to the script's directory, and run:
       - It calls plot_daily_data(covid_data) to generate the plot using the loaded data
 
 
-# Total Covid Data
+# Total Covid Cases Graph
 ![alt text](image-2.png)
 
-# Daily Covid Data
+# Daily Covid Cases Graph
 ![alt text](image-3.png)
